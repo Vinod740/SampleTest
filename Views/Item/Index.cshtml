@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ShoppingCart.Models.ItemMaster>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Image)
+                    <img src="@item.ImagePath" alt="@item.ItemName" height="100" width="100" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                @{
+                    if (ViewBag.SessionUserGroup == 1)                    
+                    {
+						<td>
+							@Html.ActionLink("Edit", "Edit", new { id = item.ItemId }) |
+							@Html.ActionLink("Details", "Details", new { id = item.ItemId }) |
+							@Html.ActionLink("Delete", "Delete", new { id = item.ItemId })
+						</td>
+					}
+					else
+					{
+						<td>
+							@Html.ActionLink("Add to Cart", "AddToCart", new { id = item.ItemId })
+						</td>
+					}
+				}
+            </tr>
+}
+    </tbody>
+</table>
+@Html.ActionLink("Check out", "CheckOut", "Item", null, new { @class = "btn btn-primary" })
+
+@Html.Raw(@TempData["AddedToCart"])
+@Html.Raw(@TempData["Success"])

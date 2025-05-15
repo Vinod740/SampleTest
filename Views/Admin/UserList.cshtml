@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ShoppingCart.Models.UserDetail>
+
+@{
+    ViewData["Title"] = "UserList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>UserList</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>            
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nationality)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhotoPath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>            
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nationality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @* @Html.DisplayFor(modelItem => item.PhotoPath) *@
+                <img src="@item.PhotoPath" height="100" width="100" alt="User" />
+            </td>
+            <td>
+				@Html.ActionLink("Edit", "Edit", new { id = item.UserDetailId }) |
+				@Html.ActionLink("Details", "Details", new { id = item.UserDetailId }) |
+				@Html.ActionLink("Delete", "Delete", new { id = item.UserDetailId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
